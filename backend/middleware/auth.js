@@ -8,7 +8,7 @@ const db = require('../db');
 const SECRET_KEY = 'samuelito123';
 
 // Definimos los metodos para base dedatos
-router.post('./register', async(req, res) => {
+router.post('/register', async(req, res) => {
     const { email, password } = req.body;
     const [rows] = await db.query('SELECT * FROM users where email = ?', [email]);
     if(rows.length > 0) return res.status(400).json({message: 'El usuario ya existe'});
@@ -18,7 +18,7 @@ router.post('./register', async(req, res) => {
     res.json({message: 'Usuario registrado exitosamente'});
 });
 
-router.post('./login', async(req, res) => {
+router.post('/login', async(req, res) => {
     const { email, password } = req.body;
 
     // Mostrar con morgan los parametros que llegaron

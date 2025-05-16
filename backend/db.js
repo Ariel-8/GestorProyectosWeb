@@ -1,15 +1,14 @@
-const mysql = require('mysql2/promise'); //Importación de mysql para la conexión a la base de datos
+const mysql = require('mysql2/promise') // Importa el módulo con soporte para promesas
 
-const pool = mysql.createPool({ //Creación de la conexión a la base de datos
+const pool = mysql.createPool({
+    host: 'localhost',          // Dirección del servidor MySQL
+    port: 3307,                 // Puerto (comúnmente es 3306, pero usas 3307)
+    user: 'root',               // Usuario
+    password: '',          // Contraseña
+    database: 'gestor_proyectos',         // Base de datos a la que te conectarás
+    waitForConnections: true,
+    connectionLimit: 10,        // Máximo de conexiones simultáneas
+    queueLimit: 0               // Sin límite en la cola de espera
+});
 
-    host: 'localhost', //Host de la base de datos
-    user: 'root', //Usuario de la base de datos
-    password: '', //Contraseña de la base de datos, si no cuenta con contraseña dejarla el espacio en blanco
-    database: 'gestor_proyectos', //Nombre de la base de datos
-    waitForConnections: true, //Esperar conexiones
-    connectionLimit: 10, //Límite de conexiones
-    queueLimit: 0, //Límite de cola de conexiones
-
-}); //Configuración de la conexión a la base de datos
-
-module.exports = pool;
+module.exports = pool; // Exporta el pool para usarlo en otros archivos
