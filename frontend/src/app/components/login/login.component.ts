@@ -21,7 +21,7 @@ export class LoginComponent {
 
   errorMessage: string | null = null;
 
-  constructor(private authService: AuthService, private router: Router){}
+  constructor(private readonly authService: AuthService, private readonly router: Router){}
 
   login(){
     this.authService.login(this.credentials).subscribe({
@@ -30,7 +30,7 @@ export class LoginComponent {
         this.router.navigate(['/crear-proyectos']);
       },
       error: (err) => {
-        this.errorMessage = err.error.message || 'Error al iniciar sesión';
+        this.errorMessage = err.error.message ?? 'Error al iniciar sesión';
       }
     });
   }

@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Mis Proyectos</h3>
+    <button class="btn btn-success" (click)="goToCreateProject()">Nuevo Proyecto</button>
+  </div>
+
+  <div *ngIf="projects.length === 0" class="alert alert-info">
+    No tienes proyectos aún. ¡Crea uno!
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-3" *ngFor="let project of projects">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ project.name }}</h5>
+          <p class="card-text">{{ project.description }}</p>
+          <p class="card-text">
+            <strong>Avance:</strong> {{ project.progress }}%
+          </p>
+          <button class="btn btn-primary" (click)="viewDetails(project.id)">Ver detalles</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

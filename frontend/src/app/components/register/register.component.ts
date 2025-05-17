@@ -21,7 +21,7 @@ export class RegisterComponent {
   errorMessage: string | null = null;
   successMessage: string | null = null;
 
-  constructor(private authService: AuthService, private router: Router){}
+  constructor(private readonly authService: AuthService, private readonly router: Router){}
 
   register(){
     this.authService.register(this.user).subscribe({
