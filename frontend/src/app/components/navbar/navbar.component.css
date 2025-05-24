@@ -1,0 +1,33 @@
+.navbar-custom {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.35rem;
+  letter-spacing: 0.5px;
+}
+
+.navbar-brand i {
+  font-size: 1.5rem;
+  color: #0d6efd;
+}
+
+.btn-primary, .btn-danger {
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: 0.4rem;
+  transition: background 0.2s;
+}
+
+.btn-primary i, .btn-danger i {
+  font-size: 1.1rem;
+}
+
+.btn-primary:hover {
+  background: #0b5ed7;
+}
+
+.btn-danger:hover {
+  background: #bb2d3b;
+}

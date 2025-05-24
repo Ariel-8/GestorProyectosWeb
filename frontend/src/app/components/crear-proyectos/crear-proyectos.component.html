@@ -1,22 +1,41 @@
-<div class="container mt-5">
+<div class="container mt-5 crear-proyecto-container">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <h3 class="text-center mb-4">Crear Proyecto</h3>
-      <form (ngSubmit)="onSubmit()">
+      <div class="text-center mb-4">
+        <i class="bi bi-folder-plus icono-proyecto"></i>
+        <h3 class="fw-bold">Crear Proyecto</h3>
+      </div>
+      <form (ngSubmit)="onSubmit()" class="p-4 rounded bg-white shadow-sm">
         <div class="form-group mb-3">
-          <label for="name">Nombre del Proyecto</label>
-          <input type="text" id="name" class="form-control" [(ngModel)]="project.name" name="name" required>
+          <label for="nombre" class="form-label">
+            <i class="bi bi-card-text me-2 text-success"></i>Nombre del Proyecto
+          </label>
+          <div class="input-group">
+            <span class="input-group-text bg-light"><i class="bi bi-pencil"></i></span>
+            <input type="text" id="nombre" class="form-control" [(ngModel)]="proyecto.nombre" name="nombre" required placeholder="Ej: App de Tareas">
+          </div>
         </div>
 
         <div class="form-group mb-3">
-          <label for="description">Descripción</label>
-          <textarea id="description" class="form-control" [(ngModel)]="project.description" name="description" rows="4"></textarea>
+          <label for="descripcion" class="form-label">
+            <i class="bi bi-pencil-square me-2 text-success"></i>Descripción
+          </label>
+          <div class="input-group">
+            <span class="input-group-text bg-light"><i class="bi bi-chat-text"></i></span>
+            <textarea id="descripcion" class="form-control" [(ngModel)]="proyecto.descripcion" name="descripcion" rows="4" placeholder="Describe tu proyecto..."></textarea>
+          </div>
         </div>
 
-        <button class="btn btn-success w-100" type="submit">Guardar</button>
-        <button class="btn btn-secondary w-100 mt-2" type="button" (click)="cancel()">Cancelar</button>
+        <button class="btn btn-success w-100 d-flex align-items-center justify-content-center mb-2" type="submit">
+          <i class="bi bi-save me-2"></i> Guardar
+        </button>
+        <button class="btn btn-secondary w-100 d-flex align-items-center justify-content-center" type="button" (click)="cancelar()">
+          <i class="bi bi-x-circle me-2"></i> Cancelar
+        </button>
       </form>
-      <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
+      <div *ngIf="error" class="alert alert-danger mt-3 d-flex align-items-center">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
+      </div>
     </div>
   </div>
 </div>

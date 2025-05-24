@@ -5,9 +5,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000';
+  private readonly apiUrl = 'http://localhost:3000/auth'; // <-- Cambia aquí
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
   login(data: any){
     return this.http.post(`${this.apiUrl}/login`, data);
@@ -16,6 +16,7 @@ export class AuthService {
   register(data: any){
     return this.http.post(`${this.apiUrl}/register`, data);
   }
+  // ...existing code...
 
   setToken(token: string){
     localStorage.setItem('token', token);
@@ -32,6 +33,4 @@ export class AuthService {
   logout(){
     localStorage.removeItem('token');
   }
-
-
 }

@@ -1,0 +1,33 @@
+.detallar-proyecto-container {
+  background: linear-gradient(135deg, #f8fafc 0%, #e9f7ef 100%);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 32px 0;
+}
+
+.list-group-item {
+  border-radius: 0.7rem;
+  margin-bottom: 0.7rem;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.05);
+}
+
+h6 {
+  font-weight: 600;
+}
+
+.btn-group-tarea {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.btn-sm i {
+  font-size: 1rem;
+}
+
+.btn-warning {
+  color: #fff;
+}
+
+.alert-info {
+  font-size: 1.1rem;
+}

@@ -1,41 +1,70 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ProyectoService } from '../../services/proyecto.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true,
-  imports: [],
-  templateUrl: './dashboard.component.html'
+  imports: [CommonModule, FormsModule],
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  projects: any[] = [];
+  proyectos: any[] = [];
+  editProyectoId: number | null = null;
+  editProyecto: any = {};
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private readonly proyectoService: ProyectoService,
+    private readonly router: Router
+  ) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    this.http.get<any[]>('http://localhost:3000/api/projects', { headers })
-      .subscribe({
-        next: data => {
-          this.projects = data;
-        },
-        error: err => {
-          console.error('Error al obtener proyectos', err);
-          if (err.status === 401) {
-            this.router.navigate(['/login']);
-          }
-        }
-      });
+    this.cargarProyectos();
   }
 
-  viewDetails(projectId: number) {
-    this.router.navigate(['/projects', projectId]);
+  cargarProyectos(): void {
+    this.proyectoService.obtenerProyectos().subscribe({
+      next: (data) => this.proyectos = data,
+      error: () => this.proyectos = []
+    });
   }
 
-  goToCreateProject() {
-    this.router.navigate(['/projects/create']);
+  irACrearProyecto(): void {
+    this.router.navigate(['/crear-proyectos']);
+  }
+
+  verDetalles(idProyecto: number): void {
+    this.router.navigate(['/detallar-proyecto', idProyecto]);
+  }
+
+  startEdit(proyecto: any): void {
+    this.editProyectoId = proyecto.id;
+    this.editProyecto = { ...proyecto };
+  }
+
+  cancelEdit(): void {
+    this.editProyectoId = null;
+    this.editProyecto = {};
+  }
+
+  saveEdit(proyecto: any): void {
+    this.proyectoService.actualizarProyecto(proyecto.id, this.editProyecto).subscribe({
+      next: () => {
+        Object.assign(proyecto, this.editProyecto);
+        this.editProyectoId = null;
+        this.editProyecto = {};
+      },
+      error: () => alert('Error al editar el proyecto')
+    });
+  }
+
+  eliminarProyecto(idProyecto: number): void {
+    if (!confirm('¿Seguro que deseas eliminar este proyecto?')) return;
+    this.proyectoService.eliminarProyecto(idProyecto).subscribe({
+      next: () => this.cargarProyectos(),
+      error: () => alert('Error al eliminar el proyecto')
+    });
   }
 }

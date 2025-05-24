@@ -1,20 +1,39 @@
-<div class="container mt-5" style="max-width: 500px;">
-    <h2 class="mb-4">Iniciar Sesión</h2>
+<div class="container mt-5 login-container" style="max-width: 500px;">
+    <div class="text-center mb-4">
+        <i class="bi bi-person-circle icono-login"></i>
+        <h2 class="fw-bold">Iniciar Sesión</h2>
+    </div>
 
-    <form (ngSubmit)="login()">
+    <form (ngSubmit)="login()" class="p-4 rounded bg-white shadow-sm">
         <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" [(ngModel)]="credentials.email" name="email" class="form-control" required>
+            <label for="email" class="form-label">
+                <i class="bi bi-envelope-at me-2 text-primary"></i>Email
+            </label>
+            <div class="input-group">
+                <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
+                <input type="email" id="email" [(ngModel)]="credentials.correo" name="correo" class="form-control" required placeholder="usuario@correo.com">
+            </div>
         </div>
 
         <div class="mb-3">
-            <label for="password" class="form-label">Contraseña</label>
-            <input type="password" id="password" [(ngModel)]="credentials.password" name="password" class="form-control" required>
+            <label for="password" class="form-label">
+                <i class="bi bi-lock-fill me-2 text-primary"></i>Contraseña
+            </label>
+            <div class="input-group">
+                <span class="input-group-text bg-light"><i class="bi bi-key"></i></span>
+                <input type="password" id="password" [(ngModel)]="credentials.contrasena" name="contrasena" class="form-control" required placeholder="Tu contraseña">
+            </div>
         </div>
 
-        <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+        <div *ngIf="errorMessage" class="alert alert-danger d-flex align-items-center">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ errorMessage }}
+        </div>
 
-        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-        <a  class="btn btn-link" (click)="register()">¿No tienes cuenta? Regístrate</a>
+        <button type="submit" class="btn btn-primary w-100 d-flex align-items-center justify-content-center mb-2">
+            <i class="bi bi-box-arrow-in-right me-2"></i> Iniciar Sesión
+        </button>
+        <a class="btn btn-link w-100" (click)="register()">
+            <i class="bi bi-person-plus me-2"></i>¿No tienes cuenta? Regístrate
+        </a>
     </form>
 </div>

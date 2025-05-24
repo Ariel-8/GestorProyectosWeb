@@ -1,23 +1,48 @@
-<div class="container mt-5">
+<div class="container mt-5 dashboard-container">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h3>Mis Proyectos</h3>
-    <button class="btn btn-success" (click)="goToCreateProject()">Nuevo Proyecto</button>
+    <h3><i class="bi bi-kanban-fill me-2 text-primary"></i>Mis Proyectos</h3>
+    <button class="btn btn-success d-flex align-items-center" (click)="irACrearProyecto()">
+      <i class="bi bi-folder-plus me-2"></i> Nuevo Proyecto
+    </button>
   </div>
 
-  <div *ngIf="projects.length === 0" class="alert alert-info">
-    No tienes proyectos aún. ¡Crea uno!
+  <div *ngIf="proyectos.length === 0" class="alert alert-info d-flex align-items-center">
+    <i class="bi bi-info-circle-fill me-2"></i> No tienes proyectos aún. ¡Crea uno!
   </div>
 
   <div class="row">
-    <div class="col-md-4 mb-3" *ngFor="let project of projects">
-      <div class="card shadow-sm">
+    <div class="col-md-4 mb-3" *ngFor="let proyecto of proyectos">
+      <div class="card shadow-sm proyecto-card">
         <div class="card-body">
-          <h5 class="card-title">{{ project.name }}</h5>
-          <p class="card-text">{{ project.description }}</p>
-          <p class="card-text">
-            <strong>Avance:</strong> {{ project.progress }}%
-          </p>
-          <button class="btn btn-primary" (click)="viewDetails(project.id)">Ver detalles</button>
+          <div *ngIf="editProyectoId === proyecto.id">
+            <input class="form-control mb-2" [(ngModel)]="editProyecto.nombre" placeholder="Nombre">
+            <textarea class="form-control mb-2" [(ngModel)]="editProyecto.descripcion" placeholder="Descripción"></textarea>
+            <button class="btn btn-primary btn-sm me-2 d-flex align-items-center" (click)="saveEdit(proyecto)">
+              <i class="bi bi-save me-1"></i> Guardar
+            </button>
+            <button class="btn btn-secondary btn-sm d-flex align-items-center" (click)="cancelEdit()">
+              <i class="bi bi-x-circle me-1"></i> Cancelar
+            </button>
+          </div>
+          <div *ngIf="editProyectoId !== proyecto.id">
+            <h5 class="card-title"><i class="bi bi-folder2-open me-2 text-success"></i>{{ proyecto.nombre }}</h5>
+            <p class="card-text"><i class="bi bi-card-text me-2 text-secondary"></i>{{ proyecto.descripcion }}</p>
+            <p class="card-text">
+              <i class="bi bi-bar-chart-fill me-2 text-info"></i>
+              <strong>Avance:</strong> {{ proyecto.avance }}%
+            </p>
+            <div class="btn-group-proyecto">
+  <button class="btn btn-primary btn-sm" (click)="verDetalles(proyecto.id)" title="Ver detalles">
+    <i class="bi bi-eye"></i>
+  </button>
+  <button class="btn btn-warning btn-sm" (click)="startEdit(proyecto)" title="Editar">
+    <i class="bi bi-pencil-square"></i>
+  </button>
+  <button class="btn btn-danger btn-sm" (click)="eliminarProyecto(proyecto.id)" title="Eliminar">
+    <i class="bi bi-trash"></i>
+  </button>
+</div>
+          </div>
         </div>
       </div>
     </div>

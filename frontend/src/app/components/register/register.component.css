@@ -1,0 +1,39 @@
+.register-container {
+  background: linear-gradient(135deg, #e9f7ef 0%, #f8f9fa 100%);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 32px 0;
+}
+
+.icono-register {
+  font-size: 3rem;
+  color: #198754;
+  margin-bottom: 8px;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.input-group-text {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.form-control:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.2rem rgba(25,135,84,.15);
+}
+
+.btn-success {
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: background 0.2s;
+}
+
+.btn-success:hover {
+  background: #157347;
+}
+
+.alert-success, .alert-danger {
+  font-size: 1rem;
+}

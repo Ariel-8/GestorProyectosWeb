@@ -4,30 +4,35 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const db = require('../db');
 
-const SECRET_KEY = 'samuelito123';
+const SECRET_KEY = 'gestorproyectos123';
 
-// Definimos los metodos para base dedatos
-router.post('/register', async(req, res) => {
-    const { email, password } = req.body;
-    const [rows] = await db.query('SELECT * FROM users where email = ?', [email]);
-    if(rows.length > 0) return res.status(400).json({message: 'El usuario ya existe'});
+// Registro de usuario
+router.post('/register', async (req, res) => {
+    const { nombre_usuario, correo, contrasena } = req.body;
+    const [rows] = await db.query('SELECT * FROM usuarios WHERE correo = ?', [correo]);
+    if (rows.length > 0) return res.status(400).json({ message: 'El usuario ya existe' });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    await db.query('insert into users (email, password) values (?, ?)', [email, hashedPassword]);
-    res.json({message: 'Usuario registrado exitosamente'});
+    const hashedPassword = await bcrypt.hash(contrasena, 10);
+    await db.query(
+        'INSERT INTO usuarios (nombre_usuario, correo, contrasena) VALUES (?, ?, ?)',
+        [nombre_usuario, correo, hashedPassword]
+    );
+    res.json({ message: 'Usuario registrado exitosamente' });
 });
 
-router.post('/login', async(req, res) => {
-    const { email, password } = req.body;
-    const [rows] = await db.query('SELECT * FROM users where email = ?', [email]);
-    if(rows.length === 0) return res.status(400).json({message: 'Credenciales inválidas'});
+// Login de usuario
+router.post('/login', async (req, res) => {
+    const { correo, contrasena } = req.body;
+    const [rows] = await db.query('SELECT * FROM usuarios WHERE correo = ?', [correo]);
+    if (rows.length === 0) return res.status(400).json({ message: 'Credenciales inválidas' });
 
-    const valido = await bcrypt.compare(password, rows[0].password);
-    if(!valido) return res.status(400).json({message: 'Password inválido'});
-    
-    const token = jwt.sign({email}, SECRET_KEY, {expiresIn: '2h'});
+    const valido = await bcrypt.compare(contrasena, rows[0].contrasena);
+    if (!valido) return res.status(400).json({ message: 'Contraseña inválida' });
 
-    res.json({token});
+    // Incluye el id y correo en el token
+    const token = jwt.sign({ id: rows[0].id, correo }, SECRET_KEY, { expiresIn: '2h' });
+
+    res.json({ token });
 });
 
 module.exports = router;

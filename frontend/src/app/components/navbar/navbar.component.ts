@@ -12,7 +12,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  constructor(public authService: AuthService, private router: Router) { }
+  constructor(public authService: AuthService, private readonly router: Router) { }
 
   logout(){
     this.authService.logout();
@@ -25,5 +25,9 @@ export class NavbarComponent {
 
   register(){
     this.router.navigate(['/register']);
+  }
+
+  dashboard(){
+    this.router.navigate(['/dashboard']);
   }
 } 

@@ -1,0 +1,39 @@
+.login-container {
+  background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 32px 0;
+}
+
+.icono-login {
+  font-size: 3rem;
+  color: #0d6efd;
+  margin-bottom: 8px;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.input-group-text {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13,110,253,.15);
+}
+
+.btn-primary {
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #0b5ed7;
+}
+
+.alert-danger {
+  font-size: 1rem;
+}

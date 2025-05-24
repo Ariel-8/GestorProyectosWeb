@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { TareaService } from '../../services/tarea.service';
 
 @Component({
   selector: 'app-crear-tarea',
@@ -13,29 +12,29 @@ import { AuthService } from '../../services/auth.service';
 })
 export class CrearTareaComponent {
   task = {
-    title: '',
-    status: 'pendiente'
+    nombre: '',
+    descripcion: '',
+    estado: 'pendiente',
+    fecha_limite: ''
   };
   error = '';
   projectId: string | null = null;
 
   constructor(
-    private route: ActivatedRoute,
-    private http: HttpClient,
-    private router: Router
+    private readonly route: ActivatedRoute,
+    private readonly tareaService: TareaService,
+    private readonly router: Router
   ) {}
 
   ngOnInit() {
-    this.projectId = this.route.snapshot.paramMap.get('id');
+    this.projectId = this.route.snapshot.paramMap.get('proyectoId');
   }
 
   onSubmit() {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    this.http.post(`http://localhost:3000/api/projects/${this.projectId}/tasks`, this.task, { headers })
+    if (!this.projectId) return;
+    this.tareaService.crearTarea(this.projectId, this.task)
       .subscribe({
-        next: () => this.router.navigate([`/projects/${this.projectId}`]),
+        next: () => { this.router.navigate([`/detallar-proyecto`, this.projectId]); },
         error: (err) => {
           console.error(err);
           this.error = 'No se pudo crear la tarea. Intenta de nuevo.';
@@ -44,6 +43,8 @@ export class CrearTareaComponent {
   }
 
   cancel() {
-    this.router.navigate([`/projects/${this.projectId}`]);
+    if (this.projectId) {
+      this.router.navigate([`/detallar-proyecto`, this.projectId]);
+    }
   }
 }

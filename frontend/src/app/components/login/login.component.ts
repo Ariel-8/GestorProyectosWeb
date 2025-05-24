@@ -15,8 +15,8 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
 
   credentials = {
-    email: '',
-    password: ''
+    correo: '',
+    contrasena: ''
   };
 
   errorMessage: string | null = null;
@@ -27,7 +27,7 @@ export class LoginComponent {
     this.authService.login(this.credentials).subscribe({
       next: (res: any) => {
         this.authService.setToken(res.token);
-        this.router.navigate(['/crear-proyectos']);
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.errorMessage = err.error.message ?? 'Error al iniciar sesión';

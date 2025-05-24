@@ -13,26 +13,27 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RegisterComponent {
 
-  user = {
-    email: '',
-    password: ''
+  usuario = {
+    nombre_usuario: '',
+    correo: '',
+    contrasena: ''
   };
 
-  errorMessage: string | null = null;
-  successMessage: string | null = null;
+  mensajeError: string | null = null;
+  mensajeExito: string | null = null;
 
   constructor(private readonly authService: AuthService, private readonly router: Router){}
 
-  register(){
-    this.authService.register(this.user).subscribe({
+  registrar(){
+    this.authService.register(this.usuario).subscribe({
       next: () => {
-        this.successMessage = 'Registro exitoso, redirigiendo a inicio de sesión...';
+        this.mensajeExito = 'Registro exitoso, redirigiendo a inicio de sesión...';
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 3000);
       },
       error: (err) => {
-        this.errorMessage = err.error.message || 'Error al registrar el usuario';
+        this.mensajeError = err.error.message ?? 'Error al registrar el usuario';
       }
     });
   }

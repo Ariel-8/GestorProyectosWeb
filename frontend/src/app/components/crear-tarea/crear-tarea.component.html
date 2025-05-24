@@ -1,26 +1,62 @@
-<div class="container mt-5">
+<div class="container mt-5 crear-tarea-container">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <h3 class="text-center mb-4">Nueva Tarea</h3>
+      <div class="text-center mb-4">
+        <i class="bi bi-clipboard-plus icono-tarea"></i>
+        <h3 class="fw-bold">Nueva Tarea</h3>
+      </div>
       <form (ngSubmit)="onSubmit()">
         <div class="form-group mb-3">
-          <label for="title">Título</label>
-          <input type="text" id="title" class="form-control" [(ngModel)]="task.title" name="title" required>
+          <label for="nombre" class="form-label">
+            <i class="bi bi-card-text me-2 text-primary"></i>Título
+          </label>
+          <div class="input-group">
+            <span class="input-group-text bg-light"><i class="bi bi-pencil"></i></span>
+            <input type="text" id="nombre" class="form-control" [(ngModel)]="task.nombre" name="nombre" required placeholder="Ej: Hacer login">
+          </div>
         </div>
 
         <div class="form-group mb-3">
-          <label for="status">Estado</label>
-          <select id="status" class="form-select" [(ngModel)]="task.status" name="status">
+          <label for="descripcion" class="form-label">
+            <i class="bi bi-pencil-square me-2 text-primary"></i>Descripción
+          </label>
+          <div class="input-group">
+            <span class="input-group-text bg-light"><i class="bi bi-chat-text"></i></span>
+            <textarea id="descripcion" class="form-control" [(ngModel)]="task.descripcion" name="descripcion" rows="3" placeholder="Describe la tarea..."></textarea>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="estado" class="form-label">
+            <i class="bi bi-list-task me-2 text-primary"></i>Estado
+          </label>
+          <select id="estado" class="form-select" [(ngModel)]="task.estado" name="estado">
             <option value="pendiente">Pendiente</option>
             <option value="en progreso">En Progreso</option>
-            <option value="finalizada">Finalizada</option>
+            <option value="completada">Completada</option>
           </select>
         </div>
 
-        <button class="btn btn-success w-100" type="submit">Guardar</button>
-        <button class="btn btn-secondary w-100 mt-2" type="button" (click)="cancel()">Cancelar</button>
+        <div class="form-group mb-3">
+          <label for="fecha_limite" class="form-label">
+            <i class="bi bi-calendar-event me-2 text-primary"></i>Fecha Límite
+          </label>
+          <div class="input-group">
+            <span class="input-group-text bg-light"><i class="bi bi-calendar"></i></span>
+            <input type="date" id="fecha_limite" class="form-control" [(ngModel)]="task.fecha_limite" name="fecha_limite">
+          </div>
+        </div>
+
+        <button class="btn btn-success w-100 d-flex align-items-center justify-content-center mb-2" type="submit">
+          <i class="bi bi-save me-2"></i> Guardar
+        </button>
+        <button class="btn btn-secondary w-100 d-flex align-items-center justify-content-center" type="button" (click)="cancel()">
+          <i class="bi bi-x-circle me-2"></i> Cancelar
+        </button>
       </form>
-      <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
+      <div *ngIf="error" class="alert alert-danger mt-3 d-flex align-items-center">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
+      </div>
     </div>
   </div>
 </div>

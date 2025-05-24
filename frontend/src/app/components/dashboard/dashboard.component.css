@@ -1,0 +1,50 @@
+.dashboard-container {
+  background: linear-gradient(135deg, #f0f4ff 0%, #f8f9fa 100%);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 32px 0;
+}
+
+.proyecto-card {
+  border-radius: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+.proyecto-card:hover {
+  box-shadow: 0 8px 32px rgba(13,110,253,0.12);
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+.btn {
+  font-weight: 500;
+  font-size: 0.92rem;
+  padding: 0.25rem 0.6rem;
+  transition: background 0.2s;
+  border-radius: 0.4rem;
+  line-height: 1.2;
+}
+
+.btn-group-proyecto {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.btn-primary i,
+.btn-warning i,
+.btn-danger i,
+.btn-success i,
+.btn-secondary i {
+  font-size: 1rem;
+}
+
+.btn-warning {
+  color: #fff;
+}
+
+.alert-info {
+  font-size: 1.1rem;
+}
