@@ -35,4 +35,10 @@ export class ProyectoService {
   return this.http.put(`${this.apiUrl}/${id}`, proyecto, { headers });
 }
 
+archivarProyecto(id: number): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.put(`${this.apiUrl}/${id}/archivar`, {}, { headers });
+}
+
 }

@@ -67,4 +67,12 @@ export class DashboardComponent implements OnInit {
       error: () => alert('Error al eliminar el proyecto')
     });
   }
+
+  archivarProyecto(idProyecto: number): void {
+  if (!confirm('¿Seguro que deseas archivar este proyecto?')) return;
+  this.proyectoService.archivarProyecto(idProyecto).subscribe({
+    next: () => this.cargarProyectos(),
+    error: () => alert('Error al archivar el proyecto')
+  });
+}
 }

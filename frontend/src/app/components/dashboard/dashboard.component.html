@@ -32,16 +32,19 @@
               <strong>Avance:</strong> {{ proyecto.avance }}%
             </p>
             <div class="btn-group-proyecto">
-  <button class="btn btn-primary btn-sm" (click)="verDetalles(proyecto.id)" title="Ver detalles">
-    <i class="bi bi-eye"></i>
-  </button>
-  <button class="btn btn-warning btn-sm" (click)="startEdit(proyecto)" title="Editar">
-    <i class="bi bi-pencil-square"></i>
-  </button>
-  <button class="btn btn-danger btn-sm" (click)="eliminarProyecto(proyecto.id)" title="Eliminar">
-    <i class="bi bi-trash"></i>
-  </button>
-</div>
+              <button class="btn btn-primary btn-sm" (click)="verDetalles(proyecto.id)" title="Ver detalles">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button class="btn btn-warning btn-sm" (click)="startEdit(proyecto)" title="Editar">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+              <button class="btn btn-danger btn-sm" (click)="eliminarProyecto(proyecto.id)" title="Eliminar">
+                <i class="bi bi-trash"></i>
+              </button>
+              <button *ngIf="proyecto.avance === 100" class="btn btn-secondary btn-sm" (click)="archivarProyecto(proyecto.id)" title="Archivar">
+                <i class="bi bi-archive"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ router.get('/', authMiddleware, async (req, res) => {
   try {
     const usuarioId = req.user.id;
     const [proyectos] = await db.query(
-      'SELECT * FROM proyectos WHERE usuario_id = ?',
+      'SELECT * FROM proyectos WHERE usuario_id = ? AND archivado = 0',
       [usuarioId]
     );
 
@@ -124,6 +124,30 @@ router.put('/:id', authMiddleware, async (req, res) => {
   } catch (error) {
     console.error('Error al actualizar el proyecto:', error);
     res.status(500).json({ mensaje: 'Error al actualizar el proyecto' });
+  }
+});
+
+//Archivar proyecto
+router.put('/:id/archivar', authMiddleware, async (req, res) => {
+  try {
+    const usuarioId = req.user.id;
+    const proyectoId = req.params.id;
+    // Verifica que el proyecto pertenezca al usuario
+    const [proyectos] = await db.query(
+      'SELECT * FROM proyectos WHERE id = ? AND usuario_id = ?',
+      [proyectoId, usuarioId]
+    );
+    if (proyectos.length === 0) {
+      return res.status(404).json({ mensaje: 'Proyecto no encontrado' });
+    }
+    await db.query(
+      'UPDATE proyectos SET archivado = 1 WHERE id = ?',
+      [proyectoId]
+    );
+    res.json({ mensaje: 'Proyecto archivado' });
+  } catch (error) {
+    console.error('Error al archivar el proyecto:', error);
+    res.status(500).json({ mensaje: 'Error al archivar el proyecto' });
   }
 });
 
